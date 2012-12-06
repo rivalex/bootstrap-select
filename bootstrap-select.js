@@ -66,18 +66,25 @@
         createLi: function(template) {
 
             var _li = [];
+            var _icon = [];
             var _liHtml = '';
             var _this = this;
             var _selected_index = this.$element.find('option:selected').index() ? this.$element.find('option:selected').index() : 0;
 
             this.$element.find('option').each(function(){
                 _li.push($(this).text());
+                _icon.push($(this).attr('title'));
             });
 
             if(_li.length > 0) {
                 template = template.replace('__SELECTED_OPTION', _li[_selected_index]);
                 for (var i = 0; i < _li.length; i++) {
-                    _liHtml += "<li rel=" + i + "><a tabindex='-1' href='#'>" + _li[i] + "</a></li>";
+                    if(!_icon[i]) {
+                        _liHtml += "<li rel=" + i + "><a tabindex='-1' href='#'>" + _li[i] + "</a></li>";
+                    } else {
+                        _liHtml += "<li rel=" + i + "><a tabindex='-1' href='#'><i class='" + _icon[i] + "'></i>&nbsp;" + _li[i] + "</a></li>";
+                    }
+                    }
                 }
             }
 
